@@ -1,0 +1,13 @@
+{
+    "extends" : "./tsconfig_custom.json",
+    "compilerOptions": {
+        "strict": true,
+        "target": "ES5",
+        "module": "CommonJS",
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "sourceMap": true,
+        "downlevelIteration": true
+    }
+}
