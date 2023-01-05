@@ -12,14 +12,9 @@ export class Api {
         ajax.send();
     }
 
-    getRequestWithPromise<AjaxResponse>(url: string, callback: (data: AjaxResponse) => void): void {
-        fetch(url)
-        .then(response => response.json())
-        .then(callback)
-        .catch(err => {
-            console.error('데이터를 불러오지 못했습니다.');
-            console.error(err);
-        })
+    async getRequestWithPromise<AjaxResponse>(url: string): Promise<AjaxResponse> {
+        const response = await fetch(url);
+        return await response.json() as AjaxResponse;
     }
 }
 
@@ -28,8 +23,8 @@ export class NewsFeedApi {
         return this.getRequest<NewsFeed[]>(NEWS_URL, callback);
     }
 
-    getDataWithPromise(callback: (data: NewsFeed[]) => void): void {
-        return this.getRequestWithPromise<NewsFeed[]>(NEWS_URL, callback);
+    async getDataWithPromise(): Promise<NewsFeed[]> {
+        return this.getRequestWithPromise<NewsFeed[]>(NEWS_URL);
     }
 }
 
@@ -38,8 +33,8 @@ export class NewsDetailApi {
         return this.getRequest<NewsDetail>(CONTENT_URL.replace('@id', id), callback);
     }
 
-    getDataWithPromise(id: string, callback: (data: NewsDetail) => void): void {
-        return this.getRequestWithPromise<NewsDetail>(CONTENT_URL.replace('@id', id), callback);
+    async getDataWithPromise(id: string): Promise<NewsDetail> {
+        return this.getRequestWithPromise<NewsDetail>(CONTENT_URL.replace('@id', id));
     }
 }
 
