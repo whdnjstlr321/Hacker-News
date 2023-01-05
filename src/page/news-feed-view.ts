@@ -40,7 +40,7 @@ export default class NewsFeedView extends View {
 
     render(): void {
         if(!this.store.hasFeeds) {
-            this.api.getData((feeds: NewsFeed[]) =>{
+            this.api.getDataWithPromise((feeds: NewsFeed[]) =>{
                 this.store.setFeeds(feeds);
                 this.renderView();
             })
