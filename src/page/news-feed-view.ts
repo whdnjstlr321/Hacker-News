@@ -1,6 +1,6 @@
 import View from '../core/view';
 import { NewsFeedApi } from '../core/api';
-import { NewsStore } from '../types'
+import { NewsStore, NewsFeed } from '../types'
 
 const template = `
 <div class="bg-gray-600 min-h-screen">
@@ -36,13 +36,21 @@ export default class NewsFeedView extends View {
 
         this.api = new NewsFeedApi();
         this.store = store;
-        if(!this.store.hasFeeds) {
-            this.store.setFeeds(this.api.getData());
-        }
     }
 
     render(): void {
+        if(!this.store.hasFeeds) {
+            this.api.getData((feeds: NewsFeed[]) =>{
+                this.store.setFeeds(feeds);
+                this.renderView();
+            })
+        }
         this.store.currentPage = Number(location.hash.substr(7) || 1);
+        this.renderView();
+    }
+    
+    
+    renderView = () => {
         for (let i = (this.store.currentPage - 1) * 10; i < this.store.currentPage * 10; i++) {
             const { read, id, title, comments_count, user, points, time_ago } = this.store.getFeed(i);
             this.addHtml(`
@@ -72,5 +80,4 @@ export default class NewsFeedView extends View {
         
         this.updateView();
     }
-    
 }
