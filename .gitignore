@@ -2,3 +2,4 @@
 dist
 test.html
 hn.http
+node_modules
