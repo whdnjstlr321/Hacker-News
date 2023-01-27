@@ -4,25 +4,25 @@ import { NewsComment, NewsDetail, NewsStore } from '../types'
 import Store from '../store';
 
 const template = `
-<div class="bg-gray-600 min-h-screen pb-8">
-    <div class="bg-white text-xl">
+<div class="container-fulid bg-secondary">
+    <div class="bg-white">
         <div class="mx-auto px-4">
-            <div class="flex justify-between items-center py-6">
-                <div class="flex justify-start">
-                    <h1 class="font-extrablod">Hacker News</h1>
+            <div class="d-flex align-content-center">
+                <div class="flex-grow-1 py-3">
+                    <h4 class="font-extrabold">Hacker News</h4>
                 </div>
-                <div class="items-center justify-end">
-                    <a href="#/page/{{__currentPage__}}" class="text-gray-500">
-                        <i class="fa fa-times"></i>
+                <div class="d-flex">
+                    <a href="#/page/{{__currentPage__}}" class="align-self-center text-decoration-none link-dark">
+                        <i class="fa fa-times fs-1 fw-bold"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="h-full border rounded-xl bg-white m-6 p-4">
+    <div class="bg-white m-4 p-3 rounded-4">
         <h2>{{__title__}}</h2>
-        <div class="text-gray-400 h-20">
+        <div class="bg-dark h-20">
             {{__content__}}
         </div>
 
@@ -45,12 +45,12 @@ export default class NewsDetailView extends View {
             const comment: NewsComment = comments[i];
     
             this.addHtml(`
-            <div style="padding-left: ${comment.level * 40}px;" class="mt-4">
-                <div class="text-gray-400">
-                    <i class="fa fa-sort-up mr-2"></i>
+            <div style="padding-left: ${comment.level * 40}px;" class="mt-5">
+                <div class="text-secondary">
+                    <i class="fa fa-sort-up"></i>
                     <strong>${comment.user}</strong> ${comment.time_ago}
                 </div>
-                <p class="text-gray-700">${comment.content}</p>
+                <p class="">${comment.content}</p>
             </div>
             `);
             if(comment.comments.length > 0) {
